@@ -2,14 +2,17 @@ import { useState } from "react"
 import "./App.css"
 import { sampleText } from "./sampleText"
 import marked from "marked"
+// Librairie pour sanitizer
 import DOMPurify from "dompurify"
 
 const App = () => {
-  let [text, setText] = useState(sampleText)
+  // Chargement de la sauvegarde si elle existe
+  let [text, setText] = useState(localStorage.getItem("markdownSaved") ? localStorage.getItem("markdownSaved") : sampleText)
 
   // Changement d'état dans le textArea
   const handleChange = (event) => {
     const newText = event.target.value
+    localStorage.setItem("markdownSaved", newText)
     setText((text = newText))
   }
 
